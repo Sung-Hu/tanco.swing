@@ -47,7 +47,7 @@ public class MyImageFrame extends JFrame {
 
 	// 내부 클래스 --> static 키워드 활용
 	// 정적(static) 내부 클래스라고 한다.
-	static class MyImagePanel extends JPanel {
+	public static class MyImagePanel extends JPanel {
 		private Image image;
 		private Image image2;
 		private Image image3;
