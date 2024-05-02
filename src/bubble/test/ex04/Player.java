@@ -24,19 +24,100 @@ public class Player extends JLabel implements Moveable {
 	private final int SPEED = 4; 
 	private final int JUMPSPEED = 2; 
 	
-	// setter 
-	public void setLeft(boolean left) {
-		this.left = left;
-	}
-	
-	public void setRight(boolean right) {
-		this.right = right;
-	}
+	// get, set
 	
 
 	public Player() {
 		initData();
 		setInitLayout();
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public ImageIcon getPlayerR() {
+		return playerR;
+	}
+
+	public void setPlayerR(ImageIcon playerR) {
+		this.playerR = playerR;
+	}
+
+	public ImageIcon getPlayerL() {
+		return playerL;
+	}
+
+	public void setPlayerL(ImageIcon playerL) {
+		this.playerL = playerL;
+	}
+
+	public boolean isLeft() {
+		return left;
+	}
+
+	public void setLeft(boolean left) {
+		this.left = left;
+	}
+
+	public boolean isRight() {
+		return right;
+	}
+
+	public void setRight(boolean right) {
+		this.right = right;
+	}
+
+	public boolean isUp() {
+		return up;
+	}
+
+	public void setUp(boolean up) {
+		this.up = up;
+	}
+
+	public boolean isDown() {
+		return down;
+	}
+
+	public void setDown(boolean down) {
+		this.down = down;
+	}
+
+	public boolean isLeftWallCrash() {
+		return leftWallCrash;
+	}
+
+	public void setLeftWallCrash(boolean leftWallCrash) {
+		this.leftWallCrash = leftWallCrash;
+	}
+
+	public boolean isRightWallCrash() {
+		return rightWallCrash;
+	}
+
+	public void setRightWallCrash(boolean rightWallCrash) {
+		this.rightWallCrash = rightWallCrash;
+	}
+
+	public int getSPEED() {
+		return SPEED;
+	}
+
+	public int getJUMPSPEED() {
+		return JUMPSPEED;
 	}
 
 	private void initData() {
@@ -56,14 +137,14 @@ public class Player extends JLabel implements Moveable {
 		leftWallCrash = false;
 		rightWallCrash = false;
 		
-		
+	}
+		private void setInitLayout() {
 		setIcon(playerR);
 		setSize(50, 50);
 		setLocation(x, y);
 	}
 
-	private void setInitLayout() {
-	}
+
 
 	@Override
 	public void left() {

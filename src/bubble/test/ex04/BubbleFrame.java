@@ -25,7 +25,7 @@ public class BubbleFrame extends JFrame {
 	
 	private void initData() {
 		// todo 이미지 변경 
-		backgroundMap = new JLabel(new ImageIcon("img/backgroundMapService.png"));
+		backgroundMap = new JLabel(new ImageIcon("img/backgroundMap.png"));
 		// backgroundMap = new JLabel(new ImageIcon("img/test.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// Frame --> root Panel
@@ -55,14 +55,25 @@ public class BubbleFrame extends JFrame {
 				
 				switch(e.getKeyCode()) {
 				case KeyEvent.VK_LEFT :
-					player.left();
+					// 왼쪽으로 방향키 누르고 있다면
+					// key 이벤트가 계속 <<<<<<<<<<<<< 키보드의 성능만큼 빠르게 입력이 계속된다!
+					// 왼쪽 상태가 아니라면
+					// 왼쪽 벽에 충돌 한게 아니라면
+					if(!player.isLeft() && !player.isLeftWallCrash()) {
+						player.left();						
+					}
+					
 					break;
-				case KeyEvent.VK_RIGHT : 
-					player.right();
+				case KeyEvent.VK_RIGHT :
+					if(!player.isRight() && !player.isRightWallCrash()) {
+						player.right();						
+					}
 					break;
 				case KeyEvent.VK_UP :
 					player.up();
 					break;
+					default:
+						break;
 				}
 			} // end of KeyPressed 
 			
@@ -74,6 +85,8 @@ public class BubbleFrame extends JFrame {
 					break;
 				case KeyEvent.VK_RIGHT : 
 					player.setRight(false);
+					break;
+				default:
 					break;
 				}
 			} // end of KeyReleased
