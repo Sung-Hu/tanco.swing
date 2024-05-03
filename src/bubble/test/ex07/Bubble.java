@@ -1,37 +1,38 @@
-package bubble.test.ex06;
+package bubble.test.ex07;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-public class Bubble extends JLabel implements Moveable{
-	
+public class Bubble extends JLabel implements Moveable {
+
 	private Player player;
-	
+
 	private int x;
 	private int y;
-	
+
 	// 움직임 상태
 	private boolean left;
 	private boolean right;
 	private boolean up;
-	
+
 	// 적군을 맞춘 상태
-	private int state; // 0.(기본 물방울) 1.(적을 가둔 물방울)
-	
+	private int state; // 0.(기본물방울), 1.(적을 가둔 상태 물방울)
+
 	private ImageIcon bubble; // 기본 물방울
 	private ImageIcon bubbled; // 적을 가둔 물방울
-	private ImageIcon bomb; // 물방울 터짐!
-	private final int BUBBLE_SPEED = 10;
-	
-	
-	// 연관관계, 의존성 컴포지션 관계, 생성자 의존(DI)
+	private ImageIcon bomb; // 물방울 팡!
+
+	// 연관관계, 의존성 컴포지션 관계, 생성자 의존 (DI)
 	public Bubble(Player player) {
 		this.player = player;
 		initData();
 		setInitLayout();
+
+		// 객체 생성시 무조건 스레드 시작
+		initThread();
 	}
-	
-	//get,set
+
+	// get, set
 	public Player getPlayer() {
 		return player;
 	}
@@ -62,7 +63,6 @@ public class Bubble extends JLabel implements Moveable{
 
 	public void setLeft(boolean left) {
 		this.left = left;
-		
 	}
 
 	public boolean isRight() {
@@ -71,7 +71,6 @@ public class Bubble extends JLabel implements Moveable{
 
 	public void setRight(boolean right) {
 		this.right = right;
-		
 	}
 
 	public boolean isUp() {
@@ -114,48 +113,90 @@ public class Bubble extends JLabel implements Moveable{
 		this.bomb = bomb;
 	}
 
-	
-	
 	private void initData() {
 		bubble = new ImageIcon("img/bubble.png");
 		bubbled = new ImageIcon("img/bubbled.png");
 		bomb = new ImageIcon("img/bomb.png");
-		
+
 		left = false;
 		right = false;
 		up = false;
 		state = 0;
-		
 	}
+
 	private void setInitLayout() {
+
 		x = player.getX();
 		y = player.getY();
-		
+
 		setIcon(bubble);
 		setSize(50, 50);
 		setLocation(x, y);
-		setVisible(true);
+
+//		setVisible(true);
 	}
-	// 공통으로 사용 하는 부분을 메서드로 만들어 보자
+
+	// 공통으로 사용하는 부분을 메서드로 만들어 보자.
 	// 이 메서드는 내부에서만 사용할 예정
-	
+
+	private void initThread() {
+		// 버블은 스레드가 하나면 된다.
+		// 익명 클래스
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				if (player.playerWay == PlayerWay.LEFT) {
+					left();
+				} else {
+					right();
+				}
+			}
+		}).start();
+	}
+
+	@Override
 	public void left() {
 		left = true;
-		setIcon(bubble);
-		
+		for(int i = 0; i < 400; i++) {
+			x--;
+			setLocation(x,y);
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		up();
 	}
+
+	@Override
 	public void right() {
 		right = true;
-		setIcon(bubble);
-
+		for(int i = 0; i < 400; i++) {
+			x++;
+			setLocation(x,y);
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		up();
 	}
 
 	@Override
 	public void up() {
-		// TODO Auto-generated method stub
-		
+		up = true;
+		while(true) {
+			y--;
+			setLocation(x,y);
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
-	
-	
-	
+
 }

@@ -1,4 +1,4 @@
-package bubble.test.ex06;
+package bubble.test.ex07;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -23,6 +23,9 @@ public class Player extends JLabel implements Moveable {
 	private final int SPEED = 4;
 	private final int JUMPSPEED = 2;
 
+	// enum 타입의 활용
+	PlayerWay playerWay;
+	
 	// get,set
 	public Player() {
 		initData();
@@ -133,6 +136,9 @@ public class Player extends JLabel implements Moveable {
 
 		leftWallCrash = false;
 		rightWallCrash = false;
+
+		playerWay = playerWay.RIGHT;
+		
 	}
 
 	private void setInitLayout() {
@@ -143,9 +149,9 @@ public class Player extends JLabel implements Moveable {
 
 	@Override
 	public void left() {
+		playerWay = playerWay.LEFT;
 		left = true;
 		setIcon(playerL);
-
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -164,9 +170,9 @@ public class Player extends JLabel implements Moveable {
 
 	@Override
 	public void right() {
+		playerWay = playerWay.RIGHT;
 		right = true;
 		setIcon(playerR);
-
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -215,10 +221,12 @@ public class Player extends JLabel implements Moveable {
 		System.out.println("다운");
 		down = true;
 		new Thread(new Runnable() {
+
 			@Override
 			public void run() {
-				while(down) {
-					y = y + SPEED;
+
+				while (down) {
+					y += JUMPSPEED;
 					setLocation(x, y);
 					try {
 						Thread.sleep(3);
@@ -226,7 +234,8 @@ public class Player extends JLabel implements Moveable {
 						e.printStackTrace();
 					}
 				}
-				down = false; 
+				down = false;
+
 			}
 		}).start();
 	}

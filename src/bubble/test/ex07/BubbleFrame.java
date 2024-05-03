@@ -1,4 +1,4 @@
-package bubble.test.ex06;
+package bubble.test.ex07;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -14,26 +14,26 @@ public class BubbleFrame extends JFrame {
 	private Player player;
 
 	public BubbleFrame() {
-
 		initData();
 		setInitLayout();
 		addEventListener();
 
 		// Player 백그라운드 서비스 시작
+
 		new Thread(new BackgroundPlayerService(player)).start();
 	}
 
 	private void initData() {
 		// todo 이미지 변경
 		backgroundMap = new JLabel(new ImageIcon("img/backgroundMap.png"));
-		// backgroundMap = new JLabel(new ImageIcon("img/test.png"));
+//		backgroundMap = new JLabel(new ImageIcon("img/test.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// Frame --> root Panel
-		setContentPane(backgroundMap); // add 처리
+		setContentPane(backgroundMap);
 		setSize(1000, 640);
 
 		player = new Player();
-
+		
 	}
 
 	private void setInitLayout() {
@@ -44,10 +44,10 @@ public class BubbleFrame extends JFrame {
 		setVisible(true);
 
 		add(player);
+
 	}
 
 	private void addEventListener() {
-
 		this.addKeyListener(new KeyAdapter() {
 
 			@Override
@@ -55,55 +55,59 @@ public class BubbleFrame extends JFrame {
 				System.out.println("key code : " + e.getKeyCode());
 
 				switch (e.getKeyCode()) {
+
 				case KeyEvent.VK_LEFT:
+					
 					// 왼쪽으로 방향키 누르고 있다면
-					// key 이벤트가 계속 <- <- <- <- <- <-
+					// key 이벤트가 계속 <- <- <- <- <-
 					// 왼쪽 상태가 아니라면
 					// 왼쪽 벽에 충돌 한게 아니라면
-					if (!player.isLeft() && !player.isLeftWallCrash()) {
+					if(!player.isLeft() && !player.isLeftWallCrash()) {
 						player.left();
 					}
 					break;
 				case KeyEvent.VK_RIGHT:
-					if (!player.isRight() && !player.isRightWallCrash()) {
+					if(!player.isRight() && !player.isRightWallCrash()) {
 						player.right();
 					}
-
 					break;
 				case KeyEvent.VK_UP:
-					player.up();
+					if(!player.isUp() && !player.isDown()) {
+						player.up();
+						
+					}
 					break;
 				case KeyEvent.VK_SPACE:
 					add(new Bubble(player));
-					
 					break;
 				default:
 					break;
 				}
+
 			} // end of KeyPressed
 
 			@Override
 			public void keyReleased(KeyEvent e) {
 				switch (e.getKeyCode()) {
+
 				case KeyEvent.VK_LEFT:
-					// 왼쪽으로 가능 상태 멈춤
+					// 왼쪽으로 가는 상태 멈춤
 					player.setLeft(false);
 					break;
 				case KeyEvent.VK_RIGHT:
-					// 오른쪽으로 가능 상태 멈춤
+					//오른쪽으로 가는 상태 멈춤
 					player.setRight(false);
-					break;
-				default:
-					break;
+					default:
+						break;
 				}
-			} // end of KeyReleased
 
+			} // end of KeyReleased
 		});
+
 	}
 
 	// 코드 테스트
 	public static void main(String[] args) {
 		new BubbleFrame();
-	} // end of main
-
+	}
 }
