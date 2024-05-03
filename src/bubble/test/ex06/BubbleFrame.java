@@ -1,4 +1,4 @@
-package bubble.test.ex04;
+package bubble.test.ex06;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -12,6 +12,7 @@ public class BubbleFrame extends JFrame {
 	private JLabel backgroundMap;
 	// 포함관계 - 콤포지션 
 	private Player player;
+	private Bubble bubble;
 	
 	public BubbleFrame() {
 		
@@ -33,6 +34,7 @@ public class BubbleFrame extends JFrame {
 		setSize(1000, 640);
 		
 		player = new Player();
+		bubble = new Bubble(player);
 		
 	}
 	private void setInitLayout() {
@@ -43,6 +45,7 @@ public class BubbleFrame extends JFrame {
 		setVisible(true);
 		
 		add(player);
+		add(bubble);
 	}
 	
 	private void addEventListener() {
@@ -72,9 +75,19 @@ public class BubbleFrame extends JFrame {
 				case KeyEvent.VK_UP :
 					player.up();
 					break;
+				case KeyEvent.VK_SPACE:
+					add(new Bubble(player));
+					new Bubble(player);
+					bubble.right();
+					
+					
+					break;
+					
 					default:
 						break;
 				}
+
+				
 			} // end of KeyPressed 
 			
 			@Override

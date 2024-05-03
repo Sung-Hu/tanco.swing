@@ -42,7 +42,7 @@ public class GameFrame extends JFrame {
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
-			g.drawImage(BackgroundImage, 0, 0, 600, 600, null);
+			g.drawImage(BackgroundImage, 0, 0, 1000, 640, null);
 			g.drawImage(player1, playerX, playerY, 50, 50, null);
 			g.drawImage(enemy1, enemyX, enemyY, 50, 50, null);
 			// Todo 플레이어, 적군 그림 그려야 함
@@ -109,7 +109,7 @@ public class GameFrame extends JFrame {
 
 	private void initData() {
 		setTitle("Thread 활용한 미니 예제");
-		setSize(600, 600);
+		setSize(1000, 700);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		try {
@@ -131,8 +131,8 @@ public class GameFrame extends JFrame {
 
 	private void setInitLayout() {
 		// 배치 관지라를 좌표기반
-		// setLayout(null);
-		// setResizable(false); // 프레임 크기 조절 불가 설정
+		//setLayout(null);
+		//setResizable(false); // 프레임 크기 조절 불가 설정
 		setVisible(true); // 화면에 뜨게끔 설정
 		add(imagePaner);
 
