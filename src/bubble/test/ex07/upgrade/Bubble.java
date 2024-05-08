@@ -1,4 +1,4 @@
-package bubble.test.ex07;
+package bubble.test.ex07.upgrade;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -199,27 +199,29 @@ public class Bubble extends JLabel implements Moveable {
 
 	@Override
 	public void up() {
-		up = true;
-		while (up) {
-			if (y == 20) {
-				up = false;	
-				setIcon(bomb);
-				Timer timer = new Timer(3000, e -> {
-					setIcon(null);
-                });
-                timer.setRepeats(false); // 한 번만 실행되도록 설정
-                timer.start();
-            }
-			
-			y--;
-			setLocation(x, y);
-			try {
-				Thread.sleep(1);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+	      up = true;
+	      while(up) {
+	         if(y == 20) {
+	            up = false;
+	            setIcon(bomb);
+	            if(up == false) {
+	               try {
+	                  Thread.sleep(500);
+	               } catch (InterruptedException e) {
+	                  e.printStackTrace();
+	               }
+	               setIcon(null);
+	            }
+	            break;
+	         }
+	         y--;
+	         setLocation(x, y);
+	         try {
+	            Thread.sleep(1);
+	         } catch (InterruptedException e) {
+	            e.printStackTrace();
+	         }
+	      }
+	   }
 
-		}
 	}
-
-}

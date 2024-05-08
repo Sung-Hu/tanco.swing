@@ -1,4 +1,4 @@
-package bubble.test.ex07;
+package bubble.test.ex07.upgrade;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -12,6 +12,7 @@ public class BubbleFrame extends JFrame {
 	private JLabel backgroundMap;
 	// 포함관계 - 콤포지션
 	private Player player;
+	private Monster monster;
 
 	public BubbleFrame() {
 		initData();
@@ -33,6 +34,7 @@ public class BubbleFrame extends JFrame {
 		setSize(1000, 640);
 
 		player = new Player();
+		monster = new Monster();
 
 	}
 
@@ -44,6 +46,7 @@ public class BubbleFrame extends JFrame {
 		setVisible(true);
 
 		add(player);
+		add(monster);
 
 	}
 
@@ -82,7 +85,9 @@ public class BubbleFrame extends JFrame {
 					break;
 				default:
 					break;
+					
 				}
+					
 
 			} // end of KeyPressed
 
@@ -109,5 +114,6 @@ public class BubbleFrame extends JFrame {
 	// 코드 테스트
 	public static void main(String[] args) {
 		new BubbleFrame();
+		
 	}
 }
